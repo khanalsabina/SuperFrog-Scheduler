@@ -14,7 +14,6 @@
 </head>
 
 <body>
-
     <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
         <div class="container"><a class="navbar-brand logo" href="#">TCU SuperFrogs</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
 
@@ -92,9 +91,7 @@
         </section>
         <section class="clean-block about-us"></section>
     </main>
-
-
-
+    <span th:text ="${#authentication.getPrincipal().getUser().getUsername()}"></span>
     <footer class="page-footer dark">
         <div class="footer-copyright">
             <p>© 2021 Copyright Text</p>

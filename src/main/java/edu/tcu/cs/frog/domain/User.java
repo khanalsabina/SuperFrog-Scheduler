@@ -11,6 +11,7 @@ public class User {
     private Integer id;
     private String username;
     private String password;
+    private String email;
 
     private String firstname;
     private String lastname;
@@ -55,6 +56,14 @@ public class User {
         this.password = password;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getFirstname() {
         return firstname;
     }
@@ -87,6 +96,14 @@ public class User {
         this.roles = roles;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getNationality() {
         return nationality;
     }
@@ -101,25 +118,5 @@ public class User {
 
     public void setAge(Integer age) {
         this.age = age;
-    }
-
-    public List<Plan> getPlanGive() {
-        return planGive;
-    }
-
-    public void setPlanGive(List<Plan> planGive) {
-        this.planGive = planGive;
-    }
-    public void addPlanGive(Plan plan){
-        this.planGive.add(plan);
-        plan.setUser(this);
-    }
-
-    public void setPlanTake(List<Plan> planTake) {
-        this.planTake = planTake;
-    }
-    public void addPlanTake(Plan plan){
-        this.planTake.add(plan);
-        plan.setFrog(this);
     }
 }

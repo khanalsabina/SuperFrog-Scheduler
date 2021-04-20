@@ -1,26 +1,120 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <meta charset="UTF-8">
-    <title>Order Detail</title>
+        <title>Order Detail</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+              integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+        <style>
+                #upload {
+                        opacity: 0;
+                }
+
+                #upload-label {
+                        position: absolute;
+                        top: 50%;
+                        left: 1rem;
+                        transform: translateY(-50%);
+                }
+
+                .image-area {
+                        border: 2px dashed rgba(255, 255, 255, 0.7);
+                        padding: 1rem;
+                        position: relative;
+                }
+
+                .image-area::before {
+                        content: 'Uploaded image result';
+                        color: #fff;
+                        font-weight: bold;
+                        text-transform: uppercase;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        font-size: 0.8rem;
+                        z-index: 1;
+                }
+
+                .image-area img {
+                        z-index: 2;
+                        position: relative;
+                }
+        </style>
 </head>
-
 <body>
-<form action="#" method="get" style="width:300px">
-        ID: 1 <br>
-        From: User1<br>
-        Email: <input disabled type="email" name="email" value="user1@tcu.edu"><br>
-        Location: <input disabled name="location" size="50" style="width: 100%;" value="3725 South Dr, Fort Worth, TX 76109"><br>
-        Time: <input disabled type="datetime-local" name="time" value="2021-04-01T07:30:00"><br>
-        Theme: <input disabled name="theme" size="50" style="width: 100%;" value="Graduation"><br>
-        Description:
-        <br>    
-        <textarea disabled cols="20" rows="5" name="des" style="width: 100%;" size="50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.    </textarea>
-        <br>
-</form>
-   
+<div class="container">
 
+        <h2>Order Details</h2>
+        <div>
+                <form th:object="${plan}" th:action="@{/frog}" class="form-horizontal" action="list.html" method="post" enctype="multipart/form-data">
+
+                        <input th:field="*{id}" type="hidden"/>
+
+                        <input th:field="*{user}" type="hidden"/>
+
+                        <div class="col-sm-2 col-form-label" th:if="${plan.user} != null">
+                                Username: <span th:if="${plan.user} != null" th:text="${plan.user.username}">username</span>
+                        </div>
+
+                        <div class="form-group">
+                                <label class="col-sm-2 col-form-label">Time:</label>
+                                <div class="col-sm-10">
+                                        <input th:field="*{time}" type="text" class="form-control"/>
+                                </div>
+                        </div>
+
+                        <div class="form-group">
+                                <label class="col-sm-2 col-form-label">Location:</label>
+                                <div class="col-sm-10">
+                                        <input th:field="*{location}" type="text" class="form-control"/>
+                                </div>
+                        </div>
+
+                        <div class="form-group">
+                                <label class="col-sm-2 col-form-label">Theme:</label>
+                                <div class="col-sm-10">
+                                        <input th:field="*{theme}" type="text" class="form-control"/>
+                                </div>
+                        </div>
+
+                        <div class="form-group">
+                                <label class="col-sm-2 col-form-label">Description:</label>
+                                <div class="col-sm-10">
+                                        <textarea th:field="*{description}" class="form-control" rows="6"></textarea>
+                                </div>
+                        </div>
+
+                        <div class="form-group" sec:authorize="hasAuthority('admin')">
+                                <label class="col-sm-2 col-form-label">Frog:</label>
+                                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"
+                                        style="width: 83.3333333333%"
+                                        th:field="*{frog.id}">
+                                        <option th:each="superfrog:${froglist}" th:value="${superfrog.id}" th:text="${superfrog.username}"></option>
+                                </select>
+                        </div>
+
+
+                        <div class="form-group" sec:authorize="hasAuthority('admin')">
+                                <label class="col-sm-2 col-form-label">Status:</label>
+                                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"
+                                        style="width: 83.3333333333%"
+                                        th:field="*{status}">
+                                        <option th:value="'Pending'" th:text="Pending"></option>
+                                        <option th:value="'Reject'" th:text="Reject"></option>
+                                        <option th:value="'Approve'" th:text="Approve"></option>
+                                        <option th:value="'Finished'" th:text="Finished"></option>
+                                </select>
+                        </div>
+
+<!--                        <input th:field="*{frog}" type="hidden"/>-->
+
+                        <button type="submit" class="btn btn-primary" style="margin-top: 10px">Submit</button>
+                </form>
+        </div>
+</div>
 </body>
-
 </html>
