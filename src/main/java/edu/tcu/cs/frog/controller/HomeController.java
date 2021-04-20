@@ -53,4 +53,5 @@ public class HomeController {
     public String normalUser(){
         return "frog/normal_user_view";
     }
+
 }
