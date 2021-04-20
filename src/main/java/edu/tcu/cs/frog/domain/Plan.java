@@ -1,5 +1,7 @@
 package edu.tcu.cs.frog.domain;
 
+import edu.tcu.cs.frog.service.UserService;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -14,7 +16,13 @@ public class Plan {
     @Column(length = 1000)
     private String description = null;
 
-    private String status = null;
+    private String status = "Pending";
+
+    private String time = null;
+
+    private String location = null;
+
+    private String theme = null;
 
     @ManyToOne
     private User user = null;
@@ -23,7 +31,7 @@ public class Plan {
     private User frog = null;
 
     public Plan() {
-
+        this.user = null;
     }
 
     public Plan(String status) {
@@ -57,6 +65,30 @@ public class Plan {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String status) {
+        this.theme = theme;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public User getUser() {return user;}
