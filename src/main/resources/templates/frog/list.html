@@ -38,8 +38,8 @@
             <td th:unless="${plan.frog} != null"></td>
             <td>
                 <a class="btn btn-info" href="show.html" th:href="@{'/frog/show/' + ${plan.id}}">Details</a>
-                <a class="btn btn-warning" href="productform.html" th:href="@{'/frog/edit/' + ${plan.id}}">Edit</a>
-                <a class="btn btn-danger" th:href="@{'/product/delete/' + ${plan.id}}">Delete</a>
+                <a class="btn btn-warning" href="showform.html" th:href="@{'/frog/edit/' + ${plan.id}}">Edit</a>
+                <a class="btn btn-danger" th:href="@{'/frog/delete/' + ${plan.id}}">Delete</a>
             </td>
         </tr>
         </tbody>
@@ -80,7 +80,7 @@
             <td th:unless="${plan.frog} != null"></td>
             <td>
                 <a class="btn btn-info" href="show.html" th:href="@{'/frog/show/' + ${plan.id}}">Details</a>
-                <a class="btn btn-warning" href="productform.html" th:href="@{'/frog/edit/' + ${plan.id}}">Edit</a>
+                <a class="btn btn-warning" href="show.html" th:href="@{'/frog/edit/' + ${plan.id}}">Edit</a>
             </td>
         </tr>
         </tbody>

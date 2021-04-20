@@ -35,7 +35,6 @@ public class PlanController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         MyUserPrincipal principal = (MyUserPrincipal) authentication.getPrincipal();
         User currentUser = principal.getUser();
-        System.out.println(currentUser.getUsername());
 
         if (currentUser.getRoles().equals("admin")){
             model.addAttribute("plans", plan);
@@ -111,12 +110,12 @@ public class PlanController {
     }
 
 
-//    @GetMapping("/delete/{id}")
-//    public String delete(@PathVariable Integer id) {
-//        productService.delete(id);
-//        return "redirect:/product/list";
-//    }
-//
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id) {
+        planService.delete(id);
+        return "redirect:/frog/list";
+    }
 //    @GetMapping("/comments")
 //    public String getComments(@RequestParam Integer prodId, Model model){
 //        Product product = productService.findById(prodId);

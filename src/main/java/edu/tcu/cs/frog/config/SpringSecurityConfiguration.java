@@ -15,8 +15,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .mvcMatchers("/h2-console/**", "/css/**", "/js/**", "/logo.jpg", "/favicon/**").permitAll()
-                    .mvcMatchers("/product/delete/**").hasAuthority("admin")
+                    .mvcMatchers("/h2-console/**", "/css/**", "/js/**", "/logo.jpg", "/favicon/**", "/signup").permitAll()
+                    .mvcMatchers("/frog/delete/**").hasAuthority("admin")
                     .anyRequest().authenticated() // anything else must be authenticated
                     .and()
                 .formLogin()
