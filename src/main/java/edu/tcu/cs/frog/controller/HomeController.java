@@ -1,6 +1,7 @@
 package edu.tcu.cs.frog.controller;
 
 import edu.tcu.cs.frog.domain.MyUserPrincipal;
+import edu.tcu.cs.frog.domain.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -33,5 +34,24 @@ public class HomeController {
         return "accessDenied";
     }
 
+    @RequestMapping("/signup")
+    public String signup(){
+
+        return "frog/signup";
+    }
+    @RequestMapping("/superfrog_view")
+    public String superFrog(){
+        return "frog/superfrog_view";
+    }
+
+    @RequestMapping("/superdirector_view")
+    public String superDirector(){
+        return "frog/superdirector_view";
+    }
+
+    @RequestMapping("normal_user_view")
+    public String normalUser(){
+        return "frog/normal_user_view";
+    }
 
 }
