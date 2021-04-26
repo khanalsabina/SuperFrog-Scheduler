@@ -25,7 +25,7 @@ public class HomeController {
     private PasswordEncoder passwordEncoder;
 
 
-    @RequestMapping("/")
+    @RequestMapping("/home")
     public String home(Model model, HttpServletRequest request){
         model.addAttribute("today", Calendar.getInstance());
 
@@ -34,6 +34,11 @@ public class HomeController {
         MyUserPrincipal principal = (MyUserPrincipal) authentication.getPrincipal();
         request.getSession(true).setAttribute("user", principal.getUser());
         return "frog/home";
+    }
+
+    @GetMapping("/")
+    public String home(){
+        return "frog/home_nologin";
     }
 
     @GetMapping("/login")
@@ -51,12 +56,12 @@ public class HomeController {
         return "frog/signup";
     }
 
-    @PostMapping("/signup/process_register")
+    @PostMapping("/signup/success")
     public String processRegister(User user) {
         userService.save(new User(
                 user.getEmail(),
                 user.getUsername(),
-                passwordEncoder.encode(user.getPassword()),
+                user.getPassword(),
                 user.getFirstname(),
                 user.getLastname(),
                 true,
@@ -65,6 +70,6 @@ public class HomeController {
                 user.getAge()
         ));
 
-        return "frog/register_success";
+        return "frog/success";
     }
 }
