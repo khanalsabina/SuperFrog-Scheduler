@@ -26,7 +26,8 @@ public class User {
     @OneToMany(mappedBy = "frog", cascade = CascadeType.ALL)
     private List<Plan> planTake = new ArrayList<Plan>();
 
-    public User(String username, String password, String firstname, String lastname, boolean enabled, String roles, String nationality, Integer age) {
+    public User(String email, String username, String password, String firstname, String lastname, boolean enabled, String roles, String nationality, Integer age) {
+        this.email = email;
         this.username = username;
         this.password = password;
         this.firstname = firstname;
