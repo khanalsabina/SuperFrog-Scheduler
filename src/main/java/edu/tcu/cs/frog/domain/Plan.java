@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 @Entity
 public class Plan {
@@ -98,5 +99,50 @@ public class Plan {
     public User getFrog() {return frog;}
 
     public void setFrog(User frog) {this.frog = frog;}
+
+    public boolean checkStart(String start){
+        if (this.getTime() == null) return false;
+        StringTokenizer st = new StringTokenizer(start,"/");
+        int startMonth = Integer.parseInt(st.nextToken());
+        int startDate = Integer.parseInt(st.nextToken());
+        int startYear = Integer.parseInt(st.nextToken());
+
+        StringTokenizer st2 = new StringTokenizer(this.getTime(),"/");
+        int month = Integer.parseInt(st2.nextToken());
+        int date = Integer.parseInt(st2.nextToken());
+        int year = Integer.parseInt(st2.nextToken());
+
+
+        if (year > startYear) return true;
+        else if (year == startYear){
+            if (month > startMonth) return true;
+            else if (month == startMonth){
+                if (date >= startDate) return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkEnd(String end){
+        if (this.getTime() == null) return false;
+        StringTokenizer st = new StringTokenizer(end,"/");
+        int endMonth = Integer.parseInt(st.nextToken());
+        int endDate = Integer.parseInt(st.nextToken());
+        int endYear = Integer.parseInt(st.nextToken());
+
+        StringTokenizer st2 = new StringTokenizer(this.getTime(),"/");
+        int month = Integer.parseInt(st2.nextToken());
+        int date = Integer.parseInt(st2.nextToken());
+        int year = Integer.parseInt(st2.nextToken());
+
+        if (year < endYear) return true;
+        else if (year == endYear){
+            if (month < endMonth) return true;
+            else if (month == endMonth){
+                if (date <= endDate) return true;
+            }
+        }
+        return false;
+    }
 
 }

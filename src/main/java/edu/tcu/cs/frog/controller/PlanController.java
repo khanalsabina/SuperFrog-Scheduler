@@ -3,6 +3,7 @@ package edu.tcu.cs.frog.controller;
 import edu.tcu.cs.frog.domain.MyUserPrincipal;
 import edu.tcu.cs.frog.domain.Plan;
 import edu.tcu.cs.frog.domain.User;
+import edu.tcu.cs.frog.service.PlanExcelExporter;
 import edu.tcu.cs.frog.service.PlanService;
 import edu.tcu.cs.frog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -109,12 +114,54 @@ public class PlanController {
         return "frog/order_detail";
     }
 
-
-
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
         planService.delete(id);
         return "redirect:/frog/list";
+    }
+
+    @GetMapping("/export")
+    public void export( HttpServletResponse response,
+                        @RequestParam(value = "start", required = false) String start,
+                        @RequestParam(value = "end", required = false) String end) throws IOException {
+        List<Plan> planList = planService.findAll();
+        System.out.println(start);
+        System.out.println(end);
+        for (int i =0; i<planList.size(); i++){
+            Plan plan = planList.get(i);
+            if (!plan.checkStart(start) || !plan.checkEnd(end)) {
+                planList.remove(i);
+                i--;
+            }
+        }
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+
+        PlanExcelExporter excelExporter = new PlanExcelExporter(planList);
+
+        excelExporter.export(response);
+    }
+
+    @GetMapping("/export/all")
+    public void exportToExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+
+        List<Plan> plan = planService.findAll();
+
+        PlanExcelExporter excelExporter = new PlanExcelExporter(plan);
+
+        excelExporter.export(response);
     }
 //    @GetMapping("/comments")
 //    public String getComments(@RequestParam Integer prodId, Model model){
