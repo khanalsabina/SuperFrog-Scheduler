@@ -39,19 +39,6 @@ public class HomeController {
 
         return "frog/signup";
     }
-    @RequestMapping("/superfrog_view")
-    public String superFrog(){
-        return "frog/superfrog_view";
-    }
 
-    @RequestMapping("/superdirector_view")
-    public String superDirector(){
-        return "frog/superdirector_view";
-    }
-
-    @RequestMapping("normal_user_view")
-    public String normalUser(){
-        return "frog/normal_user_view";
-    }
 
 }

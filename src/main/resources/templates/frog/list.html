@@ -44,6 +44,28 @@
         </tr>
         </tbody>
     </table>
+<form th:action="@{/frog/export}" id="form1" class="container" style="padding-left: 0; padding-right: 3%">
+    <div class="row">
+    <label class="col col-form-label">Start Date:</label>
+    <div class="form-group col-3">
+        <div class="col-sm-10">
+            <input th:name="start" type="text" class="form-control" placeholder="mm/dd/yyyy" />
+        </div>
+    </div>
+    <label class="col col-form-label">End Date:</label>
+    <div class="form-group col-3" style="display:inline-block">
+        <div class="col-sm-10">
+            <input th:name="end" type="text" class="form-control" placeholder="mm/dd/yyyy" />
+        </div>
+    </div>
+    <p class="form-group col">
+            <button form="form1" type="submit" class="btn btn-secondary">Export</button>
+    </p>
+    <p class="form-group col">
+            <a class="btn btn-secondary" href="../home.html" th:href="@{/frog/export/all}">Export All</a>
+    </p>
+    </div>
+</form>
 
     <p>
         <a class="btn btn-secondary" href="../home.html" th:href="@{/}">Return to home</a>
