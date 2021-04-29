@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Frog Register</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
+
+</head>
+
+<body >
+<div class="container" text-align = "center">
+    <h2 class="form-signin-heading">Register Here</h2>
+
+    <form class="form-signin" th:action="@{/signup/success_frog}" method="post" th:object="${user}">
+        <div class="form-group row">
+
+            <input class="form-control form-control-user" type="email" th:field="*{email}" required  placeholder="Email Address" >
+
+
+        </div>
+        <div class="form-group row">
+
+            <input class="form-control form-control-user" type="text" th:field="*{username}" required  placeholder="Username" >
+
+        </div>
+        <div class="form-group row">
+
+            <input class="form-control form-control-user" type="text" th:field="*{firstname}" required placeholder="First Name" >
+        </div>
+
+        <div class="form-group row">
+            <input class="form-control form-control-user" type="text" th:field="*{lastname}" required placeholder="Last Name" >
+        </div>
+
+
+        <div class="form-group row">
+
+            <input class="form-control form-control-user" type="password" th:field="*{password}" required placeholder="Password">
+
+
+        </div>
+        <button class="btn btn-primary btn-block text-white btn-user" type="submit" >Register Frog</button>
+
+    </form>
+
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script src="/js/fullcalendar/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+<script src="/js/theme.js"></script>
+</body>
+
+</html>

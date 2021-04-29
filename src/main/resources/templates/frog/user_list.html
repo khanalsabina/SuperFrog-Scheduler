@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>User List</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="shortcut icon" type="image/png" href="../static/favicon/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+
+<body>
+<div sec:authorize="hasAuthority('admin')" class="container">
+    <h1>Spirit Director User List</h1>
+    <hr/>
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>USERNAME</th>
+            <th>FIRSTNAME</th>
+            <th>LASTNAME</th>
+            <th>EMAIL</th>
+            <th>ENABLED</th>
+            <th>ROLES</th>
+        </tr>
+        </thead>
+        <tbody th:remove="all-but-first">
+        <tr th:each="user:${user}" th:unless="${user.id} == 1">
+            <td th:text="${user.id}">id</td>
+            <td th:text="${user.username}">username</td>
+            <td th:text="${user.firstname}">firstname</td>
+            <td th:text="${user.lastname}">lastname</td>
+            <td th:text="${user.email}">email</td>
+            <td th:text="${user.enabled}">true</td>
+            <td th:text="${user.roles}">roles</td>
+            <td>
+                <a class="btn btn-info" href="show.html" th:href="@{'/users/' + ${user.id}}">Details</a>
+                <a class="btn btn-warning" href="showform.html" th:href="@{'/users/edit/' + ${user.id}}">Edit</a>
+            </td>
+        </tr>
+        </tbody>
+    <p>
+        <a class="btn btn-success" href="../home.html" th:href="@{/signup/frog}">Create Superfrog</a>
+        <a class="btn btn-secondary" href="../home.html" th:href="@{/home}">Return to home</a>
+    </p>
+</div>

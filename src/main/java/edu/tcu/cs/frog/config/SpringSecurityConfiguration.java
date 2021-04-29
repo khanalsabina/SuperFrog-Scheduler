@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -16,18 +17,17 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .mvcMatchers("/h2-console/**", "/css/**", "/js/**", "/logo.jpg", "/favicon/**", "/signup/**", "/frog/register_success","/","/assets/**").permitAll()
-                    .mvcMatchers("/frog/delete/**").hasAuthority("admin")
+                    .mvcMatchers("/frog/delete/**","/users/edit/**","/users/**").hasAuthority("admin")
                     .anyRequest().authenticated() // anything else must be authenticated
                     .and()
                 .formLogin()
                     .loginPage("/login").permitAll() // let anonymous user access login page
                     .defaultSuccessUrl("/home", true)
                     .and()
-                .logout()
-                    .logoutSuccessUrl("/logout")
-                    .logoutSuccessUrl("/login")
-                    .invalidateHttpSession(true)
-                    .and()
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/")
+                .invalidateHttpSession(true)
+                .and()
                 .exceptionHandling()
                     .accessDeniedPage("/access_denied"); // 403 error
 
