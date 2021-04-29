@@ -45,6 +45,7 @@ public class HomeController {
     public String loginPage(){
         return "frog/login";
     }
+
     @GetMapping("/access_denied")
     String accessDenied(){
         return "accessDenied";
@@ -56,6 +57,13 @@ public class HomeController {
         return "frog/signup";
     }
 
+    @RequestMapping("/signup/frog")
+    public String frogSignup(Model model){
+        model.addAttribute("user", new User());
+        return "frog/signup_frog";
+    }
+
+
     @PostMapping("/signup/success")
     public String processRegister(User user) {
         userService.save(new User(
@@ -65,11 +73,24 @@ public class HomeController {
                 user.getFirstname(),
                 user.getLastname(),
                 true,
-                "user",
-                user.getNationality(),
-                user.getAge()
+                "user"
         ));
 
         return "frog/success";
+    }
+
+    @PostMapping("/signup/success_frog")
+    public String frog(User user) {
+        userService.save(new User(
+                user.getEmail(),
+                user.getUsername(),
+                user.getPassword(),
+                user.getFirstname(),
+                user.getLastname(),
+                true,
+                "frog"
+        ));
+
+        return "redirect:/user/list";
     }
 }

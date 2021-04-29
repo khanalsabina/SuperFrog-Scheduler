@@ -17,8 +17,6 @@ public class User {
     private String lastname;
     private boolean enabled;
     private String roles;
-    private String nationality;
-    private Integer age;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Plan> planGive = new ArrayList<Plan>();
@@ -26,7 +24,7 @@ public class User {
     @OneToMany(mappedBy = "frog", cascade = CascadeType.ALL)
     private List<Plan> planTake = new ArrayList<Plan>();
 
-    public User(String email, String username, String password, String firstname, String lastname, boolean enabled, String roles, String nationality, Integer age) {
+    public User(String email, String username, String password, String firstname, String lastname, boolean enabled, String roles) {
         this.email = email;
         this.username = username;
         this.password = password;
@@ -34,8 +32,6 @@ public class User {
         this.lastname = lastname;
         this.enabled = enabled;
         this.roles = roles;
-        this.nationality = nationality;
-        this.age = age;
     }
 
     public User() {
@@ -103,21 +99,5 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getNationality() {
-        return nationality;
-    }
-
-    public void setNationality(String nationality) {
-        this.nationality = nationality;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
     }
 }
