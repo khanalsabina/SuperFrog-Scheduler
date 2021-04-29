@@ -29,7 +29,7 @@
                     <a class="nav-link" sec:authorize="hasAuthority('frog')" th:href="@{/user}">User Detail</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" sec:authorize="hasAuthority('admin')" th:href="@{/user/list}">View User</a>
+                    <a class="nav-link" sec:authorize="hasAuthority('admin')" th:href="@{/users/list}">View User</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{frog/new}">Schedule an Event</a>

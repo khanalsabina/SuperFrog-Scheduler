@@ -58,7 +58,7 @@ public class UserController {
         return "frog/user";
     }
 
-    @GetMapping("/user/list")
+    @GetMapping("/users/list")
     public String getAllUser(Model model){
         List<User> userList = userService.findAll();
         model.addAttribute("user", userList);
@@ -86,7 +86,7 @@ public class UserController {
             currentUser.setFirstname(newUser.getFirstname());
             currentUser.setLastname(newUser.getLastname());
         }
-        if (currentUser.getRoles().equals("admin")) return "redirect:/user/list";
+        if (currentUser.getRoles().equals("admin")) return "redirect:/users/list";
         return "redirect:/user";
     }
 
