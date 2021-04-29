@@ -91,6 +91,6 @@ public class HomeController {
                 "frog"
         ));
 
-        return "redirect:/user/list";
+        return "redirect:/users/list";
     }
 }
