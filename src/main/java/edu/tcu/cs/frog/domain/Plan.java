@@ -31,6 +31,9 @@ public class Plan {
     @ManyToOne
     private User frog = null;
 
+    @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<Comment>();
+
     public Plan() {
         this.user = null;
     }
@@ -99,6 +102,18 @@ public class Plan {
     public User getFrog() {return frog;}
 
     public void setFrog(User frog) {this.frog = frog;}
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+    public void addComment(Comment comment){
+        this.comments.add(comment);
+        comment.setPlan(this);
+    }
 
     public boolean checkStart(String start){
         if (this.getTime() == null) return false;

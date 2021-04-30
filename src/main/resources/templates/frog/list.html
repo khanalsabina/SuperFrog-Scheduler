@@ -22,6 +22,7 @@
             <th>EMAIL</th>
             <th>STATUS</th>
             <th>FROG</th>
+            <th>COMMENT</th>
         </tr>
         </thead>
         <tbody th:remove="all-but-first">
@@ -36,6 +37,14 @@
             <td th:text="${plan.status}">status</td>
             <td th:if="${plan.frog} != null" th:text="${plan.frog.username}"> FROG </td>
             <td th:unless="${plan.frog} != null"></td>
+            <td>
+                <span th:text="${#lists.size(plan.comments)}">2</span> comment/s
+                <a class="btn btn-outline-info" href="comments.html"
+                   th:href="@{/frog/comments(prodId=${plan.id})}"
+                   th:unless="${#lists.isEmpty(plan.comments)}">
+                    View
+                </a>
+            </td>
             <td>
                 <a class="btn btn-info" href="show.html" th:href="@{'/frog/show/' + ${plan.id}}">Details</a>
                 <a class="btn btn-warning" href="showform.html" th:href="@{'/frog/edit/' + ${plan.id}}">Edit</a>
@@ -86,6 +95,7 @@
             <th>EMAIL</th>
             <th>STATUS</th>
             <th>FROG</th>
+            <th>COMMENT</th>
         </tr>
         </thead>
         <tbody th:remove="all-but-first">
@@ -101,15 +111,23 @@
             <td th:if="${plan.frog} != null" th:text="${plan.frog.username}"> FROG </td>
             <td th:unless="${plan.frog} != null"></td>
             <td>
+                <span th:text="${#lists.size(plan.comments)}">2</span> comment/s
+                <a class="btn btn-outline-info" href="comments.html"
+                   th:href="@{/frog/comments(prodId=${plan.id})}"
+                   th:unless="${#lists.isEmpty(plan.comments)}">
+                    View
+                </a>
+            </td>
+            <td>
                 <a class="btn btn-info" href="show.html" th:href="@{'/frog/show/' + ${plan.id}}">Details</a>
-                <a class="btn btn-warning" href="show.html" th:href="@{'/frog/edit/' + ${plan.id}}">Edit</a>
+                <a class="btn btn-warning" href="show.html" th:href="@{'/frog/comments/new/' + ${plan.id}}">Volunteer</a>
             </td>
         </tr>
         </tbody>
     </table>
 
     <p>
-        <a class="btn btn-secondary" href="../home.html" th:href="@{/}">Return to home</a>
+        <a class="btn btn-secondary" href="../home.html" th:href="@{/home}">Return to home</a>
     </p>
 </div>
 
@@ -127,6 +145,7 @@
             <th>EMAIL</th>
             <th>STATUS</th>
             <th>FROG</th>
+            <th>COMMENT</th>
         </tr>
         </thead>
         <tbody th:remove="all-but-first">
@@ -142,15 +161,23 @@
             <td th:if="${plan.frog} != null" th:text="${plan.frog.username}"> FROG </td>
             <td th:unless="${plan.frog} != null"></td>
             <td>
+                <span th:text="${#lists.size(plan.comments)}">2</span> comment/s
+                <a class="btn btn-outline-info" href="comments.html"
+                   th:href="@{/frog/comments(prodId=${plan.id})}"
+                   th:unless="${#lists.isEmpty(plan.comments)}">
+                    View
+                </a>
+            </td>
+            <td>
                 <a class="btn btn-info" href="show.html" th:href="@{'/frog/show/' + ${plan.id}}">Details</a>
-                <a class="btn btn-warning" href="">Contact</a>
+                <a class="btn btn-warning"  th:href="@{'/frog/comments/new/' + ${plan.id}}">Contact</a>
             </td>
         </tr>
         </tbody>
     </table>
 
     <p>
-        <a class="btn btn-secondary" href="../home.html" th:href="@{/}">Return to home</a>
+        <a class="btn btn-secondary" href="../home.html" th:href="@{/home}">Return to home</a>
     </p>
 </div>
 </body>
