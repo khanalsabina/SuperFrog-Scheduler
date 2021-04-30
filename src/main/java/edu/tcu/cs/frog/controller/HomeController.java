@@ -75,6 +75,7 @@ public class HomeController {
                 true,
                 "user"
         ));
+        System.out.println(user.getPassword());
 
         return "frog/success";
     }

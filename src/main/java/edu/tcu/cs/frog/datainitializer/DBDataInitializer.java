@@ -1,6 +1,7 @@
 package edu.tcu.cs.frog.datainitializer;
 
 
+import edu.tcu.cs.frog.domain.Comment;
 import edu.tcu.cs.frog.domain.Plan;
 import edu.tcu.cs.frog.domain.User;
 import edu.tcu.cs.frog.service.PlanService;
@@ -94,6 +95,9 @@ public class DBDataInitializer implements CommandLineRunner {
         p1.setLocation("FortWorth");
         p2.setLocation("Houston");
         p3.setLocation("TexasCity");
+
+        p1.addComment(new Comment("frog: volunteers for this event.", "I know the area."));
+        p3.addComment(new Comment("user: want to change this event's detail.", "Want to change the event's date."));
 
         p1.setUser(u1);
         p2.setUser(u6);

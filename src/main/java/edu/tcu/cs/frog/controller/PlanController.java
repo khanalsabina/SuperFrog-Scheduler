@@ -1,5 +1,6 @@
 package edu.tcu.cs.frog.controller;
 
+import edu.tcu.cs.frog.domain.Comment;
 import edu.tcu.cs.frog.domain.MyUserPrincipal;
 import edu.tcu.cs.frog.domain.Plan;
 import edu.tcu.cs.frog.domain.User;
@@ -163,10 +164,38 @@ public class PlanController {
 
         excelExporter.export(response);
     }
-//    @GetMapping("/comments")
-//    public String getComments(@RequestParam Integer prodId, Model model){
-//        Product product = productService.findById(prodId);
-//        model.addAttribute("product", product);
-//        return "product/comments";
-//    }
+    @GetMapping("/comments")
+    public String getComments(@RequestParam Integer prodId, Model model){
+        Plan plan = planService.findById(prodId);
+        model.addAttribute("plan", plan);
+        return "frog/comments";
+    }
+
+    @GetMapping("/comments/new/{id}")
+    public String newComments(@PathVariable Integer id, Model model){
+        Plan plan = planService.findById(id);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        MyUserPrincipal principal = (MyUserPrincipal) authentication.getPrincipal();
+        User currUser = principal.getUser();
+        String title = "";
+        if (currUser.getRoles().equals("frog"))
+            title = currUser.getUsername() + ": volunteer for this event.";
+        else if (currUser.getRoles().equals("user"))
+            title = currUser.getUsername() + ": want to change this event's detail.";
+
+        Comment comment = new Comment(title,"");
+        model.addAttribute("plan",plan);
+        model.addAttribute("comment", comment);
+
+        return "frog/new_comments";
+    }
+
+    @PostMapping("/save/{id}")
+    public String save(@PathVariable Integer id, Comment newComment, Model model) throws IOException {
+        Plan plan = planService.findById(id);
+        plan.addComment(newComment);
+        Plan savePlan = planService.save(plan);
+        return "redirect:/frog/list";
+    }
 }
